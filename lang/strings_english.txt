@@ -1,0 +1,29 @@
+<?php
+/**
+ * ReminderManager Plugin - English strings
+ *
+ * @package ReminderManager
+ * @author Cristobal Montenegro
+ */
+
+$s_plugin_ReminderManager_title = 'Reminder Manager';
+$s_plugin_ReminderManager_description = 'Allows configuring automated reminders based on custom date fields.';
+$s_plugin_ReminderManager_rules_list = 'Rules List';
+$s_plugin_ReminderManager_add_rule = 'Add Rule';
+$s_plugin_ReminderManager_edit_rule = 'Edit Rule';
+$s_plugin_ReminderManager_name = 'Rule Name';
+$s_plugin_ReminderManager_custom_field = 'Custom Field (Date)';
+$s_plugin_ReminderManager_template = 'Message Template';
+$s_plugin_ReminderManager_execution_time = 'Execution Time (HH:MM)';
+$s_plugin_ReminderManager_enabled = 'Enabled';
+$s_plugin_ReminderManager_save = 'Save';
+$s_plugin_ReminderManager_delete = 'Delete';
+$s_plugin_ReminderManager_placeholder_hint = 'Tip: Use [[id]], [[summary]], [[handler]], [[reporter]], [[status]] or [[custom_field_X]]';
+$s_plugin_ReminderManager_cron_instructions = 'Cron Configuration';
+$s_plugin_ReminderManager_cron_hint = 'For reminders to be sent automatically, you must configure a cron job on your server that executes the processing script every 15 minutes (or your preferred frequency). Example entry:';
+$s_plugin_ReminderManager_cron_command = '*/15 * * * * /usr/bin/php %s';
+$s_plugin_ReminderManager_template_subject = 'Email Subject';
+$s_plugin_ReminderManager_notify_reporter = 'Notify Reporter';
+$s_plugin_ReminderManager_notify_handler = 'Notify Handler';
+$s_plugin_ReminderManager_notify_monitors = 'Notify Monitors';
+$s_plugin_ReminderManager_placeholder_link = 'Link to case';

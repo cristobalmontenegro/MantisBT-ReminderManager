@@ -1,0 +1,29 @@
+<?php
+/**
+ * ReminderManager Plugin - Spanish strings
+ *
+ * @package ReminderManager
+ * @author Cristobal Montenegro
+ */
+
+$s_plugin_ReminderManager_title = 'Reminder Manager';
+$s_plugin_ReminderManager_description = 'Permite configurar recordatorios automáticos basados en fechas de campos personalizados.';
+$s_plugin_ReminderManager_rules_list = 'Lista de Reglas';
+$s_plugin_ReminderManager_add_rule = 'Añadir Regla';
+$s_plugin_ReminderManager_edit_rule = 'Editar Regla';
+$s_plugin_ReminderManager_name = 'Nombre de la Regla';
+$s_plugin_ReminderManager_custom_field = 'Campo Personalizado (Fecha)';
+$s_plugin_ReminderManager_template = 'Plantilla del Mensaje';
+$s_plugin_ReminderManager_execution_time = 'Hora de Envío (HH:MM)';
+$s_plugin_ReminderManager_enabled = 'Activo';
+$s_plugin_ReminderManager_save = 'Guardar';
+$s_plugin_ReminderManager_delete = 'Eliminar';
+$s_plugin_ReminderManager_placeholder_hint = 'Tip: Usa [[id]], [[summary]], [[handler]], [[reporter]], [[status]] o [[custom_field_X]]';
+$s_plugin_ReminderManager_cron_instructions = 'Configuración del Cron';
+$s_plugin_ReminderManager_cron_hint = 'Para que los recordatorios se envíen automáticamente, debes configurar una tarea cron en tu servidor que ejecute el script de procesamiento cada 15 minutos (o la frecuencia que prefieras). Ejemplo de entrada:';
+$s_plugin_ReminderManager_cron_command = '*/15 * * * * /usr/bin/php %s';
+$s_plugin_ReminderManager_template_subject = 'Asunto del Correo';
+$s_plugin_ReminderManager_notify_reporter = 'Notificar al Informador';
+$s_plugin_ReminderManager_notify_handler = 'Notificar al Responsable (Asignado)';
+$s_plugin_ReminderManager_notify_monitors = 'Notificar a los Monitores';
+$s_plugin_ReminderManager_placeholder_link = 'Enlace al caso';
