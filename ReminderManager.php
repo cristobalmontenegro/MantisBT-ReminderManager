@@ -6,7 +6,7 @@
  * basándose en la fecha configurada en cualquier campo personalizado de tipo fecha.
  * 
  * @package ReminderManager
- * @version 2.1.3
+ * @version 2.1.4
  * @author Cristobal Montenegro
  * @link github.com/cristobalmontenegro
  */
@@ -21,7 +21,7 @@ class ReminderManagerPlugin extends MantisPlugin {
 		$this->name = 'Reminder Manager';
 		$this->description = 'Envía recordatorios de correo basados en campos personalizados de fecha.';
 		$this->page = 'config_page';
-		$this->version = '2.1.3';
+		$this->version = '2.1.4';
 		$this->requires = array(
 			'MantisCore' => '2.0.0',
 		);

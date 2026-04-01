@@ -3,7 +3,6 @@
 # This script should be executed via system cron (e.g., every 5-15 minutes)
 
 # MantisBT initialization
-# Assuming this script is in plugins/ReminderManager/scripts/process.php
 $t_core_path = dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . DIRECTORY_SEPARATOR . 'core.php';
 
 # Fallback for development structure in this workspace
@@ -17,6 +16,11 @@ if ( !file_exists( $t_core_path ) ) {
 }
 
 require_once( $t_core_path );
+
+# ACCIÓN CRÍTICA: Autenticar el script como administrador para que Mantis permita leer los casos
+if ( function_exists( 'auth_attempt_script_login' ) ) {
+	auth_attempt_script_login( 'administrator' );
+}
 
 # Ensure we are running from CLI or authorized with a valid token
 if ( php_sapi_name() !== 'cli' ) {
