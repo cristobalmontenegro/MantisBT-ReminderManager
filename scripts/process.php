@@ -46,10 +46,9 @@ while ( $row = db_fetch_array( $t_result ) ) {
 	if ( !empty( $row['last_run'] ) && date( 'Y-m-d', strtotime( $row['last_run'] ) ) == $t_current_date ) continue;
 
 	$t_cf_id = $row['custom_field_id'];
-	$t_template = $row['template_body'];
 
-	# Find bugs with this custom field value set
-	$t_cf_table = db_get_table( 'mantis_custom_field_string_table' );
+	# Corrección: Nombre exacto de la tabla de Mantis sin que db_get_table la duplique
+	$t_cf_table = db_get_table( 'custom_field_string' );
 	
 	$t_query_bugs = "SELECT bug_id, value FROM $t_cf_table WHERE field_id = " . db_param() . " AND value <> ''";
 	$t_result_bugs = db_query_bound( $t_query_bugs, array( $t_cf_id ) );
@@ -91,7 +90,7 @@ function process_reminder( $p_bug_id, $p_rule_row ) {
 	);
 
 	# Custom fields placeholders [[custom_field_X]]
-	if ( preg_match_all( '/\[\[custom_field_(\d+)\]\]/', $t_template . $t_template_subject, $matches ) ) {
+	if ( preg_match_all( '/\[\[custom_field_(\d+)\]\]/i', $t_template . $t_template_subject, $matches ) ) {
 		foreach ( array_unique($matches[1]) as $t_cf_target_id ) {
 			$t_val = custom_field_get_value( $t_cf_target_id, $p_bug_id );
 			$t_placeholders['[[custom_field_' . $t_cf_target_id . ']]'] = $t_val;
@@ -102,12 +101,13 @@ function process_reminder( $p_bug_id, $p_rule_row ) {
 	$t_search = array_keys( $t_placeholders );
 	$t_replace = array_values( $t_placeholders );
 
-	$t_message = str_replace( $t_search, $t_replace, $t_template );
+	# Corrección: str_ireplace hace que los placeholders sean insensibles a mayúsculas/minúsculas
+	$t_message = str_ireplace( $t_search, $t_replace, $t_template );
 	
 	if ( empty( $t_template_subject ) ) {
 		$t_subject = "[Recordatorio] Caso $p_bug_id: " . $t_bug->summary;
 	} else {
-		$t_subject = str_replace( $t_search, $t_replace, $t_template_subject );
+		$t_subject = str_ireplace( $t_search, $t_replace, $t_template_subject );
 	}
 
 	# Recolección de destinatarios basada en la configuración de la regla
@@ -133,7 +133,8 @@ function process_reminder( $p_bug_id, $p_rule_row ) {
 
 	if ( count( $t_emails ) > 0 ) {
 		foreach ( $t_emails as $t_to ) {
-			email_send( $t_to, $t_subject, $t_message );
+			# Corrección: Encolar correo en lugar de enviarlo de golpe
+			email_store( $t_to, $t_subject, $t_message );
 		}
 
 		# Registrar en la bitácora (logs)
@@ -150,4 +151,9 @@ function process_reminder( $p_bug_id, $p_rule_row ) {
 
 	# ACCIÓN CRÍTICA: Limpiar el valor del campo personalizado tras la notificación
 	custom_field_set_value( $t_cf_id, $p_bug_id, '', false );
+}
+
+# CORRECCIÓN CRÍTICA: Vaciar la cola de correos de Mantis para procesos en segundo plano
+if ( function_exists( 'email_send_all' ) ) {
+	email_send_all();
 }
