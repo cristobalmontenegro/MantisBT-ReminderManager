@@ -33,6 +33,22 @@ if ( $t_action == 'delete' ) {
 		trigger_error( ERROR_CUSTOM_FIELD_INVALID_DEFINITION, ERROR );
 	}
 
+	# --- 1. AUTO-CORRECCIÓN DE ERRORES COMUNES ---
+	# Cambia palabras en español por los placeholders oficiales del sistema
+	$t_corrections = array(
+		'/\[\[NOMBRE\]\]/i' => '[[summary]]',
+		'/\[\[RESUMEN\]\]/i' => '[[summary]]',
+		'/\[\[ESTADO\]\]/i' => '[[status]]',
+		'/\[\[ASIGNADO\]\]/i' => '[[handler]]'
+	);
+	$t_template = preg_replace( array_keys($t_corrections), array_values($t_corrections), $t_template );
+	$t_template_subject = preg_replace( array_keys($t_corrections), array_values($t_corrections), $t_template_subject );
+
+	# --- 2. FORZAR MINÚSCULAS EN PLACEHOLDERS ---
+	# Busca todo lo que esté entre [[ ]] y lo convierte a minúsculas
+	$t_template = preg_replace_callback('/\[\[(.*?)\]\]/', function($matches) { return strtolower($matches[0]); }, $t_template);
+	$t_template_subject = preg_replace_callback('/\[\[(.*?)\]\]/', function($matches) { return strtolower($matches[0]); }, $t_template_subject);
+
 	if ( $t_id > 0 ) {
 		$t_query = "UPDATE $t_rules_table SET 
 			name = " . db_param() . ", 

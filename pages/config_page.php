@@ -77,6 +77,7 @@ if ( $t_rule_id > 0 ) {
                                 <th><?php echo plugin_lang_get( 'name' ) ?></th>
                                 <th><?php echo plugin_lang_get( 'custom_field' ) ?></th>
                                 <th><?php echo plugin_lang_get( 'execution_time' ) ?></th>
+                                <th><?php echo plugin_lang_get( 'last_run' ) ?></th>
                                 <th class="center"><?php echo plugin_lang_get( 'enabled' ) ?></th>
                                 <th class="center"><?php echo plugin_lang_get( 'edit_rule' ) ?></th>
                                 <th class="center"><?php echo plugin_lang_get( 'delete' ) ?></th>
@@ -88,6 +89,9 @@ if ( $t_rule_id > 0 ) {
                                     <td><?php echo string_display_line( $row['name'] ) ?></td>
                                     <td><?php echo string_display_line( custom_field_get_field( $row['custom_field_id'], 'name' ) ) ?></td>
                                     <td><?php echo string_display_line( $row['execution_time'] ) ?></td>
+                                    <td>
+                                        <?php echo $row['last_run'] ? string_display_line( $row['last_run'] ) : '<em>' . plugin_lang_get( 'never' ) . '</em>' ?>
+                                    </td>
                                     <td class="center"><?php echo $row['enabled'] ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>' ?></td>
                                     <td class="center">
                                         <a class="btn btn-xs btn-primary btn-white btn-round" href="<?php echo plugin_page( 'config_page&id=' . $row['id'] ) ?>">
@@ -158,7 +162,33 @@ if ( $t_rule_id > 0 ) {
                             <tr>
                                 <td class="category"><?php echo plugin_lang_get( 'template' ) ?></td>
                                 <td>
-                                    <textarea name="template_body" class="form-control" rows="8" required><?php echo string_textarea( $t_edit_rule['template_body'] ) ?></textarea>
+                                    <textarea id="template_body_id" name="template_body" class="form-control" rows="8" required><?php echo string_textarea( $t_edit_rule['template_body'] ) ?></textarea>
+                                    
+                                    <div style="margin-top: 8px; margin-bottom: 8px;">
+                                        <span class="help-block" style="display:inline; margin-right:10px;">Insertar:</span>
+                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[id]]')">ID</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[summary]]')">Resumen</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[status]]')">Estado</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[handler]]')">Asignado</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[reporter]]')">Informador</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[link]]')">Enlace</button>
+                                    </div>
+                                    <script>
+                                    function insertPlaceholder(placeholder) {
+                                        var txtarea = document.getElementById("template_body_id");
+                                        var scrollPos = txtarea.scrollTop;
+                                        var caretPos = txtarea.selectionStart;
+                                        var front = (txtarea.value).substring(0, caretPos);
+                                        var back = (txtarea.value).substring(txtarea.selectionEnd, txtarea.value.length);
+                                        txtarea.value = front + placeholder + back;
+                                        caretPos = caretPos + placeholder.length;
+                                        txtarea.selectionStart = caretPos;
+                                        txtarea.selectionEnd = caretPos;
+                                        txtarea.focus();
+                                        txtarea.scrollTop = scrollPos;
+                                    }
+                                    </script>
+
                                     <span class="help-block"><?php echo plugin_lang_get( 'placeholder_hint' ) ?> | [[link]] (<?php echo plugin_lang_get( 'placeholder_link' ) ?>)</span>
                                 </td>
                             </tr>

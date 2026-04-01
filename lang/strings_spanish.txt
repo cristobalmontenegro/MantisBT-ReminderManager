@@ -27,3 +27,5 @@ $s_plugin_ReminderManager_notify_reporter = 'Notificar al Informador';
 $s_plugin_ReminderManager_notify_handler = 'Notificar al Responsable (Asignado)';
 $s_plugin_ReminderManager_notify_monitors = 'Notificar a los Monitores';
 $s_plugin_ReminderManager_placeholder_link = 'Enlace al caso';
+$s_plugin_ReminderManager_last_run = 'Última Ejecución';
+$s_plugin_ReminderManager_never = 'Nunca';
