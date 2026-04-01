@@ -166,28 +166,13 @@ if ( $t_rule_id > 0 ) {
                                     
                                     <div style="margin-top: 8px; margin-bottom: 8px;">
                                         <span class="help-block" style="display:inline; margin-right:10px;">Insertar:</span>
-                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[id]]')">ID</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[summary]]')">Resumen</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[status]]')">Estado</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[handler]]')">Asignado</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[reporter]]')">Informador</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info" onclick="insertPlaceholder('[[link]]')">Enlace</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[id]]">ID</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[summary]]">Resumen</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[status]]">Estado</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[handler]]">Asignado</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[reporter]]">Informador</button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[link]]">Enlace</button>
                                     </div>
-                                    <script>
-                                    function insertPlaceholder(placeholder) {
-                                        var txtarea = document.getElementById("template_body_id");
-                                        var scrollPos = txtarea.scrollTop;
-                                        var caretPos = txtarea.selectionStart;
-                                        var front = (txtarea.value).substring(0, caretPos);
-                                        var back = (txtarea.value).substring(txtarea.selectionEnd, txtarea.value.length);
-                                        txtarea.value = front + placeholder + back;
-                                        caretPos = caretPos + placeholder.length;
-                                        txtarea.selectionStart = caretPos;
-                                        txtarea.selectionEnd = caretPos;
-                                        txtarea.focus();
-                                        txtarea.scrollTop = scrollPos;
-                                    }
-                                    </script>
 
                                     <span class="help-block"><?php echo plugin_lang_get( 'placeholder_hint' ) ?> | [[link]] (<?php echo plugin_lang_get( 'placeholder_link' ) ?>)</span>
                                 </td>
@@ -229,5 +214,6 @@ if ( $t_rule_id > 0 ) {
     </div>
 </div>
 
+<script type="text/javascript" src="<?php echo plugin_file( 'reminder.js' ); ?>"></script>
 <?php
 layout_page_end();
